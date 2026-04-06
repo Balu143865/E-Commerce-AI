@@ -5,6 +5,7 @@ import { useCart } from '../context/CartContext';
 const NewProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { addToCart } = useCart();
 
   useEffect(() => {
@@ -14,14 +15,18 @@ const NewProducts = () => {
   const fetchProducts = async () => {
     try {
       const response = await fetch('/api/products?limit=12');
+      if (!response.ok) throw new Error('Failed to fetch');
       const data = await response.json();
       setProducts(data.products || []);
     } catch (error) {
       console.error('Error fetching products:', error);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
   };
+
+  
 
   const handleAddToCart = (product) => {
     addToCart(product);
@@ -63,9 +68,15 @@ const NewProducts = () => {
           </Link>
         </div>
 
+        {error && (
+          <div className="text-red-500 mb-4">Error: {error}</div>
+        )}
+
         {/* Products Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-          {products.map((product) => (
+          {products.length === 0 ? (
+            <div className="col-span-full text-gray-500">No products available</div>
+          ) : products.map((product) => (
             <div 
               key={product._id} 
               className="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl hover:ring-2 hover:ring-orange-500 hover:ring-offset-2 transition-all duration-300"
@@ -140,6 +151,7 @@ const NewProducts = () => {
               </div>
             </div>
           ))}
+          )}
         </div>
       </div>
     </div>
