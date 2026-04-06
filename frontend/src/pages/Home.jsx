@@ -190,6 +190,25 @@ const Home = () => {
         </div>
       )}
 
+      {/* New Arrivals */}
+      {!loading && newArrivals.length > 0 && (
+        <div className="container mx-auto px-4 py-12">
+          <div className="flex items-center space-x-2 mb-8">
+            <FiZap className="text-orange-500 text-2xl" />
+            <h2 className="text-2xl font-bold text-gray-800">New Arrivals</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            {newArrivals.slice(0, 12).map(product => (
+              <ProductCard 
+                key={product._id} 
+                product={product} 
+                onAddToCart={handleAddToCart}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* AI Recommendations */}
       {recommendations.length > 0 && (
         <div className="container mx-auto px-4 py-12">
