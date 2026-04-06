@@ -36,7 +36,7 @@ const NewProducts = () => {
   }
 
   return (
-    <div className="py-16 px-4 bg-white">
+    <div className="py-8 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
