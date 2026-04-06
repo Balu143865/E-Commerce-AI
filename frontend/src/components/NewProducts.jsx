@@ -14,7 +14,8 @@ const NewProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('/api/products?limit=12');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+      const response = await fetch(`${apiUrl}/products?limit=12`);
       if (!response.ok) throw new Error('Failed to fetch');
       const data = await response.json();
       setProducts(data.products || []);
