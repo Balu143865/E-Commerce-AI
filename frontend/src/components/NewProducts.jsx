@@ -11,7 +11,7 @@ const NewProducts = () => {
     fetchProducts();
   }, []);
 
-const fetchProducts = async () => {
+  const fetchProducts = async () => {
     try {
       const apiUrl = 'http://localhost:5001/api';
       const response = await fetch(`${apiUrl}/products?limit=12`);
@@ -20,13 +20,10 @@ const fetchProducts = async () => {
       setProducts(data.products || []);
     } catch (error) {
       console.error('Error fetching products:', error);
-      setError(error.message);
     } finally {
       setLoading(false);
-    }
+}
   };
-
-  
 
   const handleAddToCart = (product) => {
     addToCart(product);
