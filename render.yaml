@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: ecommerce-backend
+    name: ecommerce-app
     env: node
     region: oregon
-    buildCommand: npm install --prefix backend
+    buildCommand: npm install && cd frontend && npm install && npm run build
     startCommand: node backend/server.js
     envVars:
       - key: MONGO_URI
