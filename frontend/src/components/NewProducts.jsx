@@ -13,7 +13,7 @@ const NewProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/products?limit=12');
+      const response = await fetch('/api/products?limit=12');
       const data = await response.json();
       setProducts(data.products || []);
     } catch (error) {
