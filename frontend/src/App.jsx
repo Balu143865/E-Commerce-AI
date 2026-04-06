@@ -4,7 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import NewProducts from './components/NewProducts';
+
 import Home from './pages/Home';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
@@ -57,7 +57,6 @@ function AppContent() {
           />
         </Routes>
       </main>
-      {!isAuthPage && <NewProducts />}
       {!isAuthPage && <Footer className="mt-auto" />}
     </div>
   );
