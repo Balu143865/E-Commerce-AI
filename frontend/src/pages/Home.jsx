@@ -170,7 +170,7 @@ const Home = () => {
 
       {/* AI Recommendations */}
       {recommendations.length > 0 && (
-        <div className="container mx-auto px-4 pb-8">
+        <div className="container mx-auto px-4 py-6">
           <div className="flex items-center space-x-2 mb-4">
             <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded">AI</span>
             <h2 className="text-2xl font-bold text-gray-800">Recommended For You</h2>
@@ -190,7 +190,7 @@ const Home = () => {
       )}
 
       {/* Newsletter */}
-      <div className="bg-gray-800 text-white py-12">
+      <div className="bg-gray-800 text-white py-10">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold mb-4">Subscribe to Our Newsletter</h2>
           <p className="mb-6 opacity-80">Get the latest updates on new products and upcoming sales</p>
