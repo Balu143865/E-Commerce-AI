@@ -22,7 +22,7 @@ const NewProducts = () => {
       console.error('Error fetching products:', error);
     } finally {
       setLoading(false);
-}
+    }
   };
 
   const handleAddToCart = (product) => {
