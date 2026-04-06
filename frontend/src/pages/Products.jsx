@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { FiFilter, FiGrid, FiList, FiX } from 'react-icons/fi';
+import { FiFilter, FiGrid, FiList, FiX, FiZap } from 'react-icons/fi';
 import { productAPI, recommendationAPI } from '../api';
 import { useCart } from '../context/CartContext';
 import ProductCard from '../components/ProductCard';
@@ -12,6 +12,7 @@ const Products = () => {
   const [pagination, setPagination] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
   const [newArrivalIds, setNewArrivalIds] = useState([]);
+  const [newArrivalProducts, setNewArrivalProducts] = useState([]);
   const { addToCart } = useCart();
 
   const [filters, setFilters] = useState({
@@ -38,6 +39,7 @@ const Products = () => {
       const res = await productAPI.getAll({ limit: 12 });
       const ids = res.data.products.map(p => p._id);
       setNewArrivalIds(ids);
+      setNewArrivalProducts(res.data.products);
     } catch (error) {
       console.error('Error fetching new arrivals:', error);
     }
@@ -186,6 +188,25 @@ const Products = () => {
 
           {/* Products Grid */}
           <div className="flex-1">
+            {/* New Arrivals Section */}
+            {newArrivalProducts.length > 0 && (
+              <div className="mb-8">
+                <div className="flex items-center space-x-2 mb-4">
+                  <FiZap className="text-orange-500" />
+                  <h2 className="text-xl font-bold text-gray-800">New Arrivals</h2>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {newArrivalProducts.map(product => (
+                    <ProductCard 
+                      key={product._id} 
+                      product={product}
+                      onAddToCart={handleAddToCart}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Mobile Filter Toggle */}
             <div className="md:hidden mb-4 flex justify-between items-center">
               <button 
