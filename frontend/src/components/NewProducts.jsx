@@ -5,16 +5,15 @@ import { useCart } from '../context/CartContext';
 const NewProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const { addToCart } = useCart();
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  const fetchProducts = async () => {
+const fetchProducts = async () => {
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+      const apiUrl = 'http://localhost:5001/api';
       const response = await fetch(`${apiUrl}/products?limit=12`);
       if (!response.ok) throw new Error('Failed to fetch');
       const data = await response.json();
@@ -68,10 +67,6 @@ const NewProducts = () => {
             </svg>
           </Link>
         </div>
-
-        {error && (
-          <div className="text-red-500 mb-4">Error: {error}</div>
-        )}
 
         {/* Products Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6 gap-4">
