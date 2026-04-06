@@ -11,17 +11,17 @@ const NewProducts = () => {
     fetchProducts();
   }, []);
 
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch('http://localhost:5001/api/products?limit=12');
-      const data = await response.json();
-      setProducts(data.products || []);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+const fetchProducts = async () => {
+      try {
+        const response = await fetch('/api/products?limit=12');
+        const data = await response.json();
+        setProducts(data.products || []);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
   const handleAddToCart = (product) => {
     addToCart(product);
