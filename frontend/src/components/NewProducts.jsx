@@ -69,7 +69,8 @@ const NewProducts = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6 gap-4">
           {products.length === 0 ? (
             <div className="col-span-full text-gray-500">No products available</div>
-          ) : products.map((product) => (
+          ) : (
+            products.map((product) => (
             <div 
               key={product._id} 
               className="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl hover:ring-2 hover:ring-orange-500 hover:ring-offset-2 transition-all duration-300"
@@ -142,11 +143,10 @@ const NewProducts = () => {
                   Add to Cart
                 </button>
               </div>
-            </div>
-          ))}
+</div>
+            ))
           )}
         </div>
-      </div>
     </div>
   );
 };
