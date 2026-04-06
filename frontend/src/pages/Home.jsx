@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiArrowRight, FiShoppingBag, FiRefreshCw, FiShield } from 'react-icons/fi';
+import { FiArrowRight, FiShoppingBag, FiRefreshCw, FiShield, FiZap } from 'react-icons/fi';
 import { productAPI, recommendationAPI } from '../api';
 import { useCart } from '../context/CartContext';
 import ProductCard from '../components/ProductCard';
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [newArrivals, setNewArrivals] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
@@ -14,12 +15,14 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [featuredRes, recsRes] = await Promise.all([
+        const [featuredRes, newArrivalsRes, recsRes] = await Promise.all([
           productAPI.getAll({ featured: true, limit: 8 }),
+          productAPI.getAll({ limit: 12 }),
           recommendationAPI.getPersonalized(8)
         ]);
         
         setFeaturedProducts(featuredRes.data.products);
+        setNewArrivals(newArrivalsRes.data.products);
         setRecommendations(recsRes.data.recommendations || []);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -167,6 +170,25 @@ const Home = () => {
           )}
         </div>
       </div>
+
+      {/* New Arrivals */}
+      {!loading && newArrivals.length > 0 && (
+        <div className="container mx-auto px-4 py-12">
+          <div className="flex items-center space-x-2 mb-8">
+            <FiZap className="text-orange-500 text-2xl" />
+            <h2 className="text-2xl font-bold text-gray-800">New Arrivals</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            {newArrivals.slice(0, 12).map(product => (
+              <ProductCard 
+                key={product._id} 
+                product={product} 
+                onAddToCart={handleAddToCart}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* AI Recommendations */}
       {recommendations.length > 0 && (
