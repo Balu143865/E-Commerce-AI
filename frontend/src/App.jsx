@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import Home from './pages/Home';
+import NewProducts from './components/NewProducts';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
@@ -57,6 +58,7 @@ function AppContent() {
           />
         </Routes>
       </main>
+      {!isAuthPage && <NewProducts />}
       {!isAuthPage && <Footer className="mt-auto" />}
     </div>
   );
